@@ -10,7 +10,7 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          docker.build(DOCKERIMAGE)
+          docker.build(DOCKERIMAGE, "--build-arg PORT=3000 -p 3000:3000")
         }
       }
     }

@@ -3,8 +3,6 @@ FROM node:20.15.0-alpine3.19
 # Create app directory
 WORKDIR /app
 
-EXPOSE 3000
-
 # Install app dependencies
 COPY package.json ./
 
