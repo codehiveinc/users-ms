@@ -1,18 +1,22 @@
 pipeline {
-  agent any
+    agent any
 
-  environment {
-    DOCKERIMAGE = 'pipeline-users-ms'
-    HOME = '.'
-  }
-
-  stages {
-    stage('Build') {
+    stages {
+        stage('Build and Run Docker') {
       steps {
         script {
-          docker.build(DOCKERIMAGE, "--build-arg PORT=3000 -p 3000:3000")
+          sh 'docker build -t mi-aplicacion .'
+
+          sh 'docker run -d -p 3000:3000 --name mi-contenedor mi-aplicacion'
         }
       }
+        }
     }
-  }
+
+    post {
+        always {
+      sh 'docker stop mi-contenedor || true'
+      sh 'docker rm mi-contenedor || true'
+        }
+    }
 }
