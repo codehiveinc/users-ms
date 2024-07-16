@@ -13,7 +13,7 @@ import JWTRepository from "./auth/infrastructure/adapters/repositoreis/jwt.repos
 import RefreshTokenRepository from "./auth/infrastructure/adapters/repositoreis/refresh-token.repository";
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
