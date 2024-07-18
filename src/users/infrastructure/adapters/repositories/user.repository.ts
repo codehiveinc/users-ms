@@ -57,10 +57,10 @@ class UserRepository implements IUserRepository {
   }
 
   async findByUUID(uuid: string): Promise<UserModel | null> {
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
         uuid,
-      },
+      }
     });
 
     if (!user) {

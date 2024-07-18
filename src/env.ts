@@ -6,6 +6,10 @@ export const envSchema = z.object({
   REFRESH_TOKEN_SECRET: z.string(),
   ACCESS_TOKEN_EXPIRATION_MS: z.string(),
   REFRESH_TOKEN_EXPIRATION_MS: z.string(),
+  RABBITMQ_URL: z.string(),
+  RABBITMQ_USERNAME: z.string(),
+  RABBITMQ_PASSWORD: z.string(),
+  SAGA_EXCHANGE_NAME: z.string(),
 });
 
 declare global {

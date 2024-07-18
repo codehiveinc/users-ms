@@ -11,6 +11,8 @@ import UserRepository from "./users/infrastructure/adapters/repositories/user.re
 import EncryptRepository from "./auth/infrastructure/adapters/repositoreis/encrypt.repository";
 import JWTRepository from "./auth/infrastructure/adapters/repositoreis/jwt.repository";
 import RefreshTokenRepository from "./auth/infrastructure/adapters/repositoreis/refresh-token.repository";
+import MessageBrokerRepository from "./shared/infrastructure/adapters/repositories/message-broker.repository";
+import UserEvents from "./users/infrastructure/events/user.events";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,12 +28,16 @@ container.register("UserRepository", UserRepository);
 container.register("EncryptRepository", EncryptRepository);
 container.register("JWTRepository", JWTRepository);
 container.register("RefreshTokenRepository", RefreshTokenRepository);
+container.register("MessageBrokerRepository", MessageBrokerRepository);
 
 const userRouter = container.resolve(UserRouter);
 const authRouter = container.resolve(AuthRouter);
+const userEvents = container.resolve(UserEvents);
 
 app.use("/api/v1/users", userRouter.getRouter());
 app.use("/api/v1/auth", authRouter.getRouter());
+
+userEvents.initializeEvents();
 
 app.get("/api/health", (req: Request, res: Response) => {
   res.status(200).json({ message: "Everything is working!" });

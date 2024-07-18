@@ -1,7 +1,7 @@
 import { Router } from "express";
 import validateResource from "../../../shared/infrastructure/middlewares/validate-resource.middleware";
 import { CreateUserSchema } from "../schemas/user.scheme";
-import UserHandler from "../handlers/user.handler";
+import UserHandler from "../handlers/rest-user.handler";
 import { autoInjectable } from "tsyringe";
 import { authenticate } from "../../../shared/infrastructure/middlewares/authenticate.middleware";
 
@@ -9,7 +9,9 @@ import { authenticate } from "../../../shared/infrastructure/middlewares/authent
 class UserRouter {
   private router: Router;
 
-  constructor(private readonly userHandler: UserHandler) {
+  constructor(
+    private readonly userHandler: UserHandler,
+  ) {
     this.router = Router();
     this.initializeRoutes();
   }

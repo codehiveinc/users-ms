@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CreateUserBodyType } from "../schemas/user.scheme";
 import { plainToClass } from "class-transformer";
-import CreateUserResponseDto from "../dtos/response/create-user-response.dto";
+import CreateUserResponseDto from "../dtos/responses/create-user-response.dto";
 import createBaseResponse from "../../../shared/infrastructure/utils/createBaseResponse";
 import CreateUserUseCase from "../../application/use-cases/create-user.use-case";
 import { injectable } from "tsyringe";
