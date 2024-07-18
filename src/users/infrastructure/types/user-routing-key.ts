@@ -1,6 +1,6 @@
 enum UserRoutingKey {
-    USER_REQUEST_GET_UUID = 'user.request.get.uuid',
-    USER_RESPONSE_GET_UUID = 'user.response.get.uuid',
+    USERS_REQUEST_USER_GET_UUID = 'users.request.user.get.uuid',
+    USERS_RESPONSE_USER_GET_UUID = 'users.response.user.get.uuid',
 }
 
 export default UserRoutingKey;

@@ -30,7 +30,7 @@ class EventUserHandler {
 
       await this.publishMessageUseCase.execute(
         response,
-        UserRoutingKey.USER_RESPONSE_GET_UUID
+        UserRoutingKey.USERS_RESPONSE_USER_GET_UUID
       );
       return;
     }
@@ -49,7 +49,7 @@ class EventUserHandler {
 
       await this.publishMessageUseCase.execute(
         response,
-        UserRoutingKey.USER_RESPONSE_GET_UUID
+        UserRoutingKey.USERS_RESPONSE_USER_GET_UUID
       );
     } catch (error) {
       const response: SagaMessageModel = {
@@ -61,7 +61,7 @@ class EventUserHandler {
 
       await this.publishMessageUseCase.execute(
         response,
-        UserRoutingKey.USER_RESPONSE_GET_UUID
+        UserRoutingKey.USERS_RESPONSE_USER_GET_UUID
       );
     }
   }
