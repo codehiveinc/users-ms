@@ -8,14 +8,14 @@ import { container } from "tsyringe";
 import UserRouter from "./users/infrastructure/routes/user.routes";
 import AuthRouter from "./auth/infrastructure/routes/auth.route";
 import UserRepository from "./users/infrastructure/adapters/repositories/user.repository";
-import EncryptRepository from "./auth/infrastructure/adapters/repositoreis/encrypt.repository";
-import JWTRepository from "./auth/infrastructure/adapters/repositoreis/jwt.repository";
-import RefreshTokenRepository from "./auth/infrastructure/adapters/repositoreis/refresh-token.repository";
+import EncryptRepository from "./auth/infrastructure/adapters/repositories/encrypt.repository";
+import JWTRepository from "./auth/infrastructure/adapters/repositories/jwt.repository";
+import RefreshTokenRepository from "./auth/infrastructure/adapters/repositories/refresh-token.repository";
 import MessageBrokerRepository from "./shared/infrastructure/adapters/repositories/message-broker.repository";
 import UserEvents from "./users/infrastructure/events/user.events";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

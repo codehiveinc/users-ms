@@ -68,18 +68,18 @@ class UserHandler {
   async findByUUID(req: Request, res: Response) {
     const { uuid } = req.params;
 
-    const userUuid = res.locals.user.uuid;
+    // const userUuid = res.locals.user.uuid;
 
-    if (uuid !== userUuid) {
-      const response = createBaseResponse(
-        null,
-        "You are not authorized to access this resource",
-        false,
-        403
-      );
+    // if (uuid !== userUuid) {
+    //   const response = createBaseResponse(
+    //     null,
+    //     "You are not authorized to access this resource",
+    //     false,
+    //     403
+    //   );
 
-      return res.status(response.statusCode).json(response);
-    }
+    //   return res.status(response.statusCode).json(response);
+    // }
 
     try {
       const user = await this.findUserByUuidUseCase.execute(uuid);

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import createBaseResponse from "../utils/createBaseResponse";
 import { container } from "tsyringe";
-import JWTRepository from "../../../auth/infrastructure/adapters/repositoreis/jwt.repository";
+import JWTRepository from "../../../auth/infrastructure/adapters/repositories/jwt.repository";
 import UserRepository from "../../../users/infrastructure/adapters/repositories/user.repository";
 
 export const authenticate = async (
