@@ -79,6 +79,35 @@ class UserRepository implements IUserRepository {
       user.updatedAt
     );
   }
+
+  async update(uuid: string, firstName: string, lastName: string, cellphone: string): Promise<UserModel | null> {
+    const user = await prisma.user.update({
+      where: {
+        uuid,
+      },
+      data: {
+        firstName,
+        lastName,
+        cellphone,
+      },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return new UserModel(
+      user.id,
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.password,
+      user.cellphone,
+      user.uuid,
+      user.createdAt,
+      user.updatedAt
+    );
+  }
 }
 
 export default UserRepository;

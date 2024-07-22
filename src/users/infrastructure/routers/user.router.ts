@@ -1,9 +1,8 @@
 import { Router } from "express";
 import validateResource from "../../../shared/infrastructure/middlewares/validate-resource.middleware";
-import { CreateUserSchema } from "../schemas/user.scheme";
+import { CreateUserSchema, UpdateUserSchema } from "../schemas/user.scheme";
 import UserHandler from "../handlers/rest-user.handler";
 import { autoInjectable } from "tsyringe";
-import { authenticate } from "../../../shared/infrastructure/middlewares/authenticate.middleware";
 
 @autoInjectable()
 class UserRouter {
@@ -22,6 +21,8 @@ class UserRouter {
     );
 
     this.router.get("/:uuid", this.userHandler.findByUUID);
+
+    this.router.put("/:uuid", validateResource(UpdateUserSchema), this.userHandler.updateUserHandler);
   }
 
   getRouter() {

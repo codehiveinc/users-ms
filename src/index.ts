@@ -5,8 +5,8 @@ import morganMiddleware from "./shared/infrastructure/middlewares/morgan.middlew
 import camelCaseMiddleware from "./shared/infrastructure/middlewares/camel-case.middleware";
 import snakeCaseMiddleware from "./shared/infrastructure/middlewares/snake-case.middleware";
 import { container } from "tsyringe";
-import UserRouter from "./users/infrastructure/routes/user.routes";
-import AuthRouter from "./auth/infrastructure/routes/auth.route";
+import UserRouter from "./users/infrastructure/routers/user.router";
+import AuthRouter from "./auth/infrastructure/routers/auth.routers";
 import UserRepository from "./users/infrastructure/adapters/repositories/user.repository";
 import EncryptRepository from "./auth/infrastructure/adapters/repositories/encrypt.repository";
 import JWTRepository from "./auth/infrastructure/adapters/repositories/jwt.repository";

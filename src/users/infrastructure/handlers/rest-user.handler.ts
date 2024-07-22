@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { CreateUserBodyType } from "../schemas/user.scheme";
+import {
+  CreateUserBodyType,
+  UpdateUserBodyType,
+  UpdateUserParamsType,
+} from "../schemas/user.scheme";
 import { plainToClass } from "class-transformer";
 import CreateUserResponseDto from "../dtos/responses/create-user-response.dto";
 import createBaseResponse from "../../../shared/infrastructure/utils/createBaseResponse";
@@ -7,15 +11,18 @@ import CreateUserUseCase from "../../application/use-cases/create-user.use-case"
 import { injectable } from "tsyringe";
 import FindUserByUuidUseCase from "../../application/use-cases/find-user-by-uuid.use-case";
 import ResourceNotFoundError from "../../../shared/application/errors/resource-not-found.error";
+import UpdateUserUseCase from "../../application/use-cases/update-user.use-case";
 
 @injectable()
 class UserHandler {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
-    private readonly findUserByUuidUseCase: FindUserByUuidUseCase
+    private readonly findUserByUuidUseCase: FindUserByUuidUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
   ) {
     this.createUserHandler = this.createUserHandler.bind(this);
     this.findByUUID = this.findByUUID.bind(this);
+    this.updateUserHandler = this.updateUserHandler.bind(this);
   }
 
   async createUserHandler(
@@ -98,7 +105,66 @@ class UserHandler {
       return res.status(response.statusCode).json(response);
     } catch (error) {
       if (error instanceof ResourceNotFoundError) {
-        const response = createBaseResponse(null, error.message, false, error.statusCode);
+        const response = createBaseResponse(
+          null,
+          error.message,
+          false,
+          error.statusCode
+        );
+
+        return res.status(response.statusCode).json(response);
+      }
+
+      const response = createBaseResponse(
+        null,
+        "Internal server error",
+        false,
+        500
+      );
+
+      return res.status(response.statusCode).json(response);
+    }
+  }
+
+  async updateUserHandler(
+    req: Request<UpdateUserParamsType, unknown, UpdateUserBodyType>,
+    res: Response
+  ) {
+    const { firstName, lastName, cellphone } = req.body;
+    const { uuid } = req.params;
+
+    try {
+      const updatedUser = await this.updateUserUseCase.execute(
+        uuid,
+        firstName,
+        lastName,
+        cellphone
+      );
+
+      const updateUserResponseDto = plainToClass(
+        CreateUserResponseDto,
+        updatedUser,
+        {
+          excludeExtraneousValues: true,
+        }
+      );
+
+      const response = createBaseResponse(
+        updateUserResponseDto,
+        "User updated successfully",
+        true,
+        200
+      );
+
+      return res.status(response.statusCode).json(response);
+    } catch (error) {
+      if (error instanceof ResourceNotFoundError) {
+        const response = createBaseResponse(
+          null,
+          error.message,
+          false,
+          error.statusCode
+        );
 
         return res.status(response.statusCode).json(response);
       }
